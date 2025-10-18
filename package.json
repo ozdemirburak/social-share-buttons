@@ -1,0 +1,52 @@
+{
+  "name": "social-share-buttons",
+  "version": "0.1.0",
+  "description": "Modern, lightweight social sharing library with zero dependencies.",
+  "type": "module",
+  "main": "./dist/social-share-buttons.umd.js",
+  "module": "./dist/social-share-buttons.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/social-share-buttons.js",
+      "require": "./dist/social-share-buttons.umd.js"
+    },
+    "./styles": "./dist/social-share-buttons.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && npm run copy:demo",
+    "copy:demo": "rm -rf demo/dist && cp -r dist demo/dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ozdemirburak/social-share-buttons.git"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.1.10"
+  },
+  "keywords": [
+    "share",
+    "share-buttons",
+    "social-share",
+    "social-share-buttons",
+    "social-media",
+    "social-media-share-buttons",
+    "web-share"
+  ],
+  "author": "Burak Özdemir (https://ozdemirburak.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ozdemirburak/social-share-buttons/issues"
+  },
+  "homepage": "https://github.com/ozdemirburak/social-share-buttons#readme"
+}
