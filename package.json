@@ -1,6 +1,6 @@
 {
   "name": "social-share-buttons",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Modern, lightweight social sharing library with zero dependencies.",
   "type": "module",
   "main": "./dist/social-share-buttons.umd.js",
@@ -48,5 +48,5 @@
   "bugs": {
     "url": "https://github.com/ozdemirburak/social-share-buttons/issues"
   },
-  "homepage": "https://github.com/ozdemirburak/social-share-buttons#readme"
+  "homepage": "https://socialsharebuttons.net"
 }

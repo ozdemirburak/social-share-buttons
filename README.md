@@ -1,4 +1,4 @@
-# Social Share Buttons
+# [Social Share Buttons](https://socialsharebuttons.net)
 
 Modern, lightweight social sharing library with zero dependencies.
 
@@ -7,24 +7,22 @@ Modern, lightweight social sharing library with zero dependencies.
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/social-share-buttons)](https://bundlephobia.com/package/social-share-buttons)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-## ✨ Features
+## Features
 
-- **Zero Dependencies** - No jQuery, no React, no any other framework requirements
-- **Modern Platforms** - Support for X (Twitter), Bluesky, Threads, Mastodon, and more
-- **Native Share API** - Optional support for device share sheet on mobile
-- **Fully Typed** - Written in TypeScript with complete type definitions
-- **Lightweight** - ~3.5KB minified, tree-shakeable
-- **Accessible** - ARIA labels, keyboard navigation, and semantic HTML
-- **Customizable** - Themes (light/dark/auto), custom labels, custom styling
-- **Multiple Formats** - ES modules, UMD, and IIFE builds included
+- **Zero Dependencies** - No jQuery, React, or other framework requirements
+- **Various Platforms** - X, Bluesky, Threads, Mastodon, and more
+- **Lightweight** - ~3.5KB minified and tree-shakeable
+- **Fully Typed** - Complete TypeScript support
+- **Accessible** - ARIA labels, keyboard navigation, semantic HTML
+- **Customizable** - Light/dark themes, and CSS styling with variables
 
-## 📦 Installation
+## Installation
+
+### npm
 
 ```bash
 npm install social-share-buttons
 ```
-
-## 🚀 Quick Start
 
 For a given HTML:
 
@@ -32,22 +30,28 @@ For a given HTML:
 <div id="share-buttons"></div>
 ```
 
-Initialize it with JavaScript:
+Import the library and styles:
 
 ```javascript
+// JavaScript file
 import SocialShareButtons from 'social-share-buttons';
-import 'social-share-buttons/styles';
+new SocialShareButtons({ container: '#share-buttons' });
 
-// Basic usage with default platforms
-new SocialShareButtons({
-  container: '#share-buttons',
-  platforms: ['x', 'facebook', 'whatsapp']
-});
+// CSS file
+import 'social-share-buttons/styles';
 ```
 
-That's it! The library will automatically detect the page title, URL, and description from meta tags.
+### CDN
 
-## 🎯 Supported Platforms
+```html
+<link href="https://cdn.jsdelivr.net/npm/social-share-buttons/dist/social-share-buttons.css" rel="stylesheet">
+<script type="module">
+  import SocialShareButtons from 'https://cdn.jsdelivr.net/npm/social-share-buttons/+esm';
+  new SocialShareButtons({ container: '#share-buttons' });
+</script>
+```
+
+## Supported Platforms
 
 | Platform          | Key         |
 |-------------------|-------------|
@@ -66,7 +70,7 @@ That's it! The library will automatically detect the page title, URL, and descri
 
 **Popup behavior:** By default, all share links open in a popup window (550×420). You can disable popups globally with `popup: false` to open links in new tabs instead, or customize popup dimensions with `popupWidth` and `popupHeight` options.
 
-## 📖 Usage Examples
+## Usage Examples
 
 ### All Platforms
 
@@ -117,13 +121,13 @@ new SocialShareButtons({
 });
 ```
 
-### Dark Theme
+### Themes
 
 ```javascript
 new SocialShareButtons({
   container: '#share-buttons',
   platforms: ['x', 'facebook', 'linkedin'],
-  theme: 'dark' // 'light', 'dark', or 'auto'
+  theme: 'dark' // 'light' (default), 'dark', or 'auto' (uses system preference)
 });
 ```
 
@@ -157,9 +161,9 @@ new SocialShareButtons({
 **Note:** When enabled, clicking any platform button will trigger the device's native share dialog instead of opening the platform-specific URL.
 
 **When to use:**
-- ✅ Use `nativeShare: true` for a generic "share this page" widget
-- ✅ Better UX on mobile (users can choose their preferred app)
-- ❌ Don't use if you want direct platform-specific sharing (e.g., "Tweet this")
+- Use `nativeShare: true` for a generic "share this page" widget
+- Better UX on mobile (users can choose their preferred app)
+- Don't use if you want direct platform-specific sharing (e.g., "Tweet this")
 
 **Default behavior** (`nativeShare: false`): Each button opens the specific platform's share URL.
 
@@ -244,13 +248,13 @@ share.updateOptions({ theme: 'dark' });
 share.destroy();
 ```
 
-## ⚙️ Configuration Options
+## Configuration Options
 
 | Option            | Type                                       | Default                         | Description                                                                                          |
 |-------------------|--------------------------------------------|---------------------------------|------------------------------------------------------------------------------------------------------|
 | `container`       | `HTMLElement \| string`                    | `document.body`                 | Container element or selector where buttons will be rendered                                         |
 | `platforms`       | `PlatformName[]`                           | `['x', 'facebook', 'whatsapp']` | Array of platform keys to display                                                                    |
-| `theme`           | `'light' \| 'dark' \| 'auto'`              | `'auto'`                        | Color theme (auto detects system preference)                                                         |
+| `theme`           | `'light' \| 'dark' \| 'auto'`              | `'light'`                       | Color theme: 'light', 'dark', or 'auto' (automatically uses user's system theme preference)          |
 | `nativeShare`     | `boolean`                                  | `false`                         | Use native share sheet instead of platform-specific URLs (mobile only)                               |
 | `popup`           | `boolean`                                  | `true`                          | Open share links in popup windows (true) or new tabs (false)                                         |
 | `popupWidth`      | `number`                                   | `550`                           | Popup width in pixels                                                                                |
@@ -262,7 +266,7 @@ share.destroy();
 | `ariaLabel`       | `string`                                   | `'Social sharing buttons'`      | ARIA label for the widget container                                                                  |
 | `copiedDuration`  | `number`                                   | `2000`                          | Duration (in milliseconds) to show copy feedback                                                     |
 
-## 🎨 Styling & Theming
+## Styling & Theming
 
 The library includes minimal, beautiful default styles. Each button has a `data-platform` attribute for custom styling:
 
@@ -274,13 +278,19 @@ The library includes minimal, beautiful default styles. Each button has a `data-
 
 /* Use CSS custom properties */
 :root {
-  --social-share-buttons-color: #1da1f2;
+  --social-share-buttons-bg: #ffffff;
+  --social-share-buttons-text: #1a1a1a;
+  --social-share-buttons-border: #e0e0e0;
+  --social-share-buttons-shadow: rgba(0, 0, 0, 0.1);
+  --social-share-buttons-hover: rgba(0, 0, 0, 0.05);
+  --social-share-buttons-radius: 0.5rem;
+  --social-share-buttons-transition: 0.2s ease;
 }
 ```
 
 Each platform button automatically sets a `--social-share-buttons-color` CSS variable based on the platform's brand color.
 
-## 🌐 Browser Support
+## Browser Support
 
 - Chrome/Edge 90+
 - Firefox 88+
@@ -289,7 +299,7 @@ Each platform button automatically sets a `--social-share-buttons-color` CSS var
 
 The library uses modern JavaScript features (ES2020) and gracefully degrades when features aren't available.
 
-## 📚 API Reference
+## API Reference
 
 ### Methods
 
@@ -361,7 +371,7 @@ interface ShareData {
 }
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -371,11 +381,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 MIT © [Burak Özdemir](https://ozdemir.dev)
 
-## 📮 Support
+## Support
 
 - [Report Issues](https://github.com/ozdemirburak/social-share-buttons/issues)
 - [Request Features](https://github.com/ozdemirburak/social-share-buttons/issues/new)

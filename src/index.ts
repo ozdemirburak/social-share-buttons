@@ -4,7 +4,6 @@
  *
  * @author Burak Özdemir
  * @license MIT
- * @version 0.1.0
  */
 
 import './social-share-buttons.css';

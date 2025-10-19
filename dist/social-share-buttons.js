@@ -114,7 +114,7 @@ const l = {
   }
 }, c = ["x", "facebook", "whatsapp"], a = (e) => l[e], h = {
   platforms: c,
-  theme: "auto",
+  theme: "light",
   nativeShare: !1,
   popup: !0,
   popupWidth: 550,

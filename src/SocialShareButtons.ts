@@ -8,7 +8,7 @@ import { platforms, defaultPlatforms, getPlatform } from './platforms';
 
 const DEFAULT_OPTIONS: Required<Omit<SocialShareButtonsOptions, 'container' | 'labels' | 'customPlatforms' | 'onShare' | 'className' | 'ariaLabel'>> = {
   platforms: defaultPlatforms as PlatformName[],
-  theme: 'auto',
+  theme: 'light',
   nativeShare: false,
   popup: true,
   popupWidth: 550,
