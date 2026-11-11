@@ -72,7 +72,7 @@
     "url": "https://github.com/ozdemirburak/social-share-buttons.git"
   },
   "devDependencies": {
-    "jsdom": "^30.1.3",
+    "jsdom": "^31.0.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.5"
   },
