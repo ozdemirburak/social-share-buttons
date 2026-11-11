@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build a sharing experience that fits your site. Customize, preview, and copy the integration.">
+  <title>Social Share Buttons — Playground</title>
+  <style>
+    :root { color-scheme: light; font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, sans-serif; color: #202c38; background: #f5f4ef; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, select, textarea { font: inherit; }
+    button, select { cursor: pointer; }
+    button, input, select, textarea, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid #3e6ee8; outline-offset: 3px; }
+    button { color: inherit; }
+    a { color: #254eb0; text-underline-offset: 3px; }
+    .shell { max-width: 1240px; margin: auto; padding: 0 28px 70px; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 25px 0; border-bottom: 1px solid #d9dcd7; }
+    .brand { font-weight: 750; letter-spacing: -.025em; display: flex; align-items: center; gap: 10px; }
+    .nav a { font-size: .86rem; }
+    .hero { padding: 54px 0 35px; max-width: 820px; }
+    .eyebrow { font-size: .72rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 750; color: #52655c; margin: 0 0 13px; }
+    h1 { font-size: clamp(2.5rem, 5.2vw, 4.25rem); line-height: 1.05; letter-spacing: -.055em; margin: 0 0 20px; max-width: 760px; }
+    .hero p:last-child { max-width: 660px; font-size: 1.12rem; color: #5c6871; margin: 0; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 23px 0 0; padding: 0; list-style: none; font-size: .76rem; }
+    .badges li { border: 1px solid #d8ddd8; border-radius: 99px; padding: 5px 10px; background: #fafbf7; }
+    .workspace { display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 24px; align-items: start; }
+    .workspace > * { min-width: 0; }
+    .panel { background: #fff; border: 1px solid #dce0df; border-radius: 16px; overflow: hidden; }
+    .panel-heading { display: flex; justify-content: space-between; align-items: center; padding: 17px 21px; border-bottom: 1px solid #e8ebe9; gap: 12px; }
+    .panel-heading h2 { font-size: .9rem; margin: 0; letter-spacing: -.01em; }
+    .step { color: #6b7781; font-size: .75rem; }
+    .controls { padding: 21px; }
+    fieldset { padding: 0; margin: 0 0 25px; border: 0; min-width: 0; }
+    legend, .field-label { display: block; font-size: .75rem; font-weight: 750; margin: 0 0 9px; color: #4b5b68; }
+    .preset-list { display: grid; gap: 7px; }
+    .preset { background: #fff; text-align: left; border: 1px solid #d7dfe4; border-radius: 8px; padding: 10px 12px; font-size: .85rem; min-height: 44px; }
+    .preset[aria-pressed="true"] { border-color: #315ec1; background: #edf3ff; color: #234caa; box-shadow: inset 3px 0 #315ec1; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px 12px; }
+    label { min-width: 0; }
+    select, input[type="url"], input[type="text"], textarea { width: 100%; min-width: 0; background: #fff; border: 1px solid #b3c0c9; color: #273744; border-radius: 7px; padding: 9px 10px; min-height: 42px; }
+    select { font-size: .8rem; }
+    textarea { resize: vertical; min-height: 76px; }
+    .platform-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .platform-choice { display: flex; align-items: center; gap: 7px; min-height: 32px; font-size: .82rem; }
+    input[type="checkbox"] { width: 16px; height: 16px; accent-color: #315ec1; margin: 0; }
+    .help { color: #677680; font-size: .75rem; line-height: 1.5; margin: 10px 0 0; }
+    .preview-stage { padding: 34px; background: #eaece7; transition: background-color 160ms; }
+    .preview-stage[data-surface="dark"] { background: #121a25; }
+    .article { background: #fff; border: 1px solid #d5ded9; border-radius: 13px; overflow: hidden; box-shadow: 0 8px 32px rgb(28 42 34 / 6%); }
+    .article-art { height: 136px; position: relative; overflow: hidden; background: #e3ebdf; }
+    .article-art::before { content: ''; position: absolute; width: 270px; height: 270px; border: 42px solid #c0d2b6; border-radius: 50%; top: -103px; right: 14%; }
+    .article-art::after { content: ''; position: absolute; width: 140px; height: 220px; background: #759073; transform: rotate(34deg); top: 56px; right: 4%; border-radius: 80px; }
+    .art-caption { position: absolute; left: 27px; bottom: 22px; font-size: .7rem; letter-spacing: .12em; font-weight: 700; color: #38513c; z-index: 1; }
+    .article-body { padding: 29px; }
+    .article-meta { display: flex; align-items: center; gap: 9px; color: #64716b; font-size: .72rem; margin-bottom: 13px; }
+    .article-meta span:first-child { font-weight: 750; color: #46614b; }
+    .article h3 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.6rem, 3vw, 2.15rem); line-height: 1.15; letter-spacing: -.025em; margin: 0 0 15px; overflow-wrap: anywhere; }
+    .article-excerpt { color: #65716d; font-size: .88rem; margin: 0 0 26px; overflow-wrap: anywhere; }
+    .share-divider { border-top: 1px solid #e0e5e1; padding-top: 22px; }
+    .share-title { margin: 0 0 12px; font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 750; color: #69756d; }
+    .preview-stage[data-surface="dark"] .article { background: #1c2735; color: #f0f3f8; border-color: #344255; }
+    .preview-stage[data-surface="dark"] .article-art { background: #354638; }
+    .preview-stage[data-surface="dark"] .article-art::before { border-color: #4b6048; }
+    .preview-stage[data-surface="dark"] .article-art::after { background: #70896c; }
+    .preview-stage[data-surface="dark"] .art-caption { color: #dfebdc; }
+    .preview-stage[data-surface="dark"] :is(.article-meta, .article-meta span:first-child, .article-excerpt, .share-title) { color: #c4ccd8; }
+    .preview-stage[data-surface="dark"] .share-divider { border-color: #3c4c60; }
+    .preview-stage[data-layout="vertical"] .article-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; }
+    .preview-stage[data-layout="vertical"] .share-divider { grid-column: 2; grid-row: 1 / span 3; border-top: 0; border-left: 1px solid #d6dfd9; padding: 0 0 0 22px; }
+    .result { min-height: 24px; margin: 0; padding: 11px 21px; font-size: .77rem; color: #40554b; border-top: 1px solid #e1e7e3; background: #f6faf6; overflow-wrap: anywhere; }
+    .content-editor { margin: 20px 0; padding: 20px 22px; }
+    .content-editor h2 { font-size: .9rem; margin: 0 0 16px; }
+    .content-editor .fields { display: grid; gap: 13px; }
+    .content-editor .field-label { margin-bottom: 5px; }
+    .content-editor input, .content-editor textarea { font-size: .84rem; }
+    .code-panel { background: #152030; border-color: #152030; color: #e2ebf8; }
+    .code-panel .panel-heading { border-color: #344256; }
+    .copy-code { background: #27374d; color: #e8f0fc; border: 1px solid #617088; border-radius: 6px; padding: 7px 12px; font-size: .76rem; min-height: 36px; }
+    pre { margin: 0; padding: 22px; overflow: auto; font-size: .77rem; line-height: 1.7; tab-size: 2; }
+    code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .code-note { padding: 0 22px 17px; color: #b5c4d8; font-size: .74rem; margin: 0; }
+    .recipes { padding-top: 52px; }
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: 22px; margin-bottom: 23px; }
+    .section-title h2 { font-size: 1.6rem; letter-spacing: -.03em; margin: 5px 0 0; }
+    .section-title p:last-child { max-width: 420px; color: #66746d; font-size: .85rem; margin: 0; }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .story-card { background: #fff; padding: 25px; border: 1px solid #d9e1d8; border-radius: 13px; }
+    .story-card .eyebrow { margin-bottom: 13px; font-size: .65rem; }
+    .story-card h3 { font: 1.45rem/1.2 Georgia, serif; margin: 0 0 12px; }
+    .story-card p { font-size: .84rem; color: #65716d; margin: 0 0 22px; }
+    .recipe-code { background: #e9ede6; border-radius: 10px; margin-top: 20px; border: 1px solid #d6dfd1; }
+    .recipe-code pre { font-size: .75rem; }
+    .footer { margin-top: 46px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; color: #67746e; font-size: .75rem; }
+    @media (max-width: 950px) { .workspace { grid-template-columns: 270px minmax(0, 1fr); gap: 18px; } .preview-stage { padding: 20px; } .article-body { padding: 22px; } .preview-stage[data-layout="vertical"] .article-body { display: block; } .preview-stage[data-layout="vertical"] .share-divider { border-left: 0; border-top: 1px solid #d6dfd9; padding: 20px 0 0; } }
+    @media (max-width: 720px) { .shell { padding: 0 16px 40px; } .hero { padding: 35px 0 28px; } .workspace { grid-template-columns: minmax(0, 1fr); } .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } .controls fieldset { margin: 0; } .controls fieldset:last-child { grid-column: 1 / -1; } .platform-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } .preview-stage { padding: 20px; } .card-grid { grid-template-columns: minmax(0, 1fr); } .section-title { display: block; } .section-title p:last-child { margin-top: 12px; } }
+    @media (max-width: 430px) { .controls { grid-template-columns: 1fr; } .controls fieldset:last-child { grid-column: auto; } .platform-list { grid-template-columns: repeat(2, 1fr); } .article-body { padding: 20px; } .preview-stage { padding: 13px; } .brand { font-size: .85rem; } }
+    @media (prefers-reduced-motion: reduce) { .preview-stage { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav" aria-label="Project"><div class="brand">Social Share Buttons</div><a href="https://github.com/ozdemirburak/social-share-buttons">Docs & source</a></nav>
+    <header class="hero">
+      <p class="eyebrow">Small library. Plenty of possibilities.</p>
+      <h1>Sharing that fits<br>your site.</h1>
+      <p>Choose your buttons, make them yours, and take the code. Built for article footers, compact toolbars, and everything worth passing along.</p>
+      <ul class="badges"><li>No runtime dependencies</li><li>Readable text labels</li><li>Keyboard accessible</li><li>Works with any framework</li></ul>
+    </header>
+
+    <main>
+      <div class="workspace">
+        <aside class="panel" aria-labelledby="configure-heading">
+          <div class="panel-heading"><h2 id="configure-heading">Make it yours</h2><span class="step">01 / Configure</span></div>
+          <div class="controls">
+            <fieldset><legend>Start with a preset</legend><div class="preset-list">
+              <button class="preset" type="button" data-preset="article" aria-pressed="true">Article footer</button>
+              <button class="preset" type="button" data-preset="compact" aria-pressed="false">Compact text toolbar</button>
+              <button class="preset" type="button" data-preset="sidebar" aria-pressed="false">Dark sidebar</button>
+            </div></fieldset>
+            <fieldset><legend>Appearance</legend><div class="form-grid">
+              <label><span class="field-label">Style</span><select id="variant"><option value="outline">Outline</option><option value="solid">Brand colors</option><option value="minimal">Minimal</option></select></label>
+              <label><span class="field-label">Theme</span><select id="theme"><option value="light">Light</option><option value="dark">Dark</option><option value="auto">System</option></select></label>
+              <label><span class="field-label">Size</span><select id="size"><option value="sm">Small</option><option value="md" selected>Medium</option><option value="lg">Large</option></select></label>
+              <label><span class="field-label">Layout</span><select id="layout"><option value="horizontal">Horizontal</option><option value="vertical">Vertical</option></select></label>
+            </div></fieldset>
+            <fieldset><legend>Choose platforms</legend><div class="platform-list" id="platforms"></div><p class="help">Every button has a visible text label. Device share appears when supported.</p></fieldset>
+          </div>
+        </aside>
+
+        <div>
+          <section class="panel" aria-labelledby="preview-heading">
+            <div class="panel-heading"><h2 id="preview-heading">Your sharing experience</h2><span class="step">02 / Live preview</span></div>
+            <div class="preview-stage" id="preview-stage" data-surface="light" data-layout="horizontal">
+              <article class="article">
+                <div class="article-art" role="img" aria-label="Abstract green shapes"><span class="art-caption">FIELD NOTES / VOL. 08</span></div>
+                <div class="article-body">
+                  <div class="article-meta"><span>DESIGN & EVERYDAY LIFE</span><span>·</span><span>5 min read</span></div>
+                  <h3 id="article-title">A little less noise. A little more room.</h3>
+                  <p class="article-excerpt" id="article-text">Finding space for the things that matter, one small decision at a time.</p>
+                  <div class="share-divider"><p class="share-title">Worth passing along</p><div id="share-preview"></div></div>
+                </div>
+              </article>
+            </div>
+            <p class="result" id="action-result" role="status" aria-live="polite">Try Copy to test the selected article URL.</p>
+          </section>
+
+          <section class="panel content-editor" aria-labelledby="content-heading">
+            <h2 id="content-heading">What are we sharing?</h2>
+            <div class="fields">
+              <label><span class="field-label">Article URL</span><input id="share-url" type="url" value="https://example.com/notes/more-room" required></label>
+              <label><span class="field-label">Title</span><input id="share-title" type="text" value="A little less noise. A little more room."></label>
+              <label><span class="field-label">Message</span><textarea id="share-text" rows="2">Finding space for the things that matter, one small decision at a time.</textarea></label>
+              <label><span class="field-label">Image URL (Pinterest)</span><input id="share-media" type="url" placeholder="https://your-site.com/article-image.jpg" aria-describedby="media-help"></label>
+              <p class="help" id="media-help">For Pinterest, enter a public image URL. The image is passed to Pinterest when you share; it is not loaded into this preview.</p>
+            </div>
+            <p class="help">Changes update the preview and snippet immediately. Other platforms open their sharing service; a request does not confirm publication.</p>
+          </section>
+
+          <section class="panel code-panel" aria-labelledby="code-heading">
+            <div class="panel-heading"><h2 id="code-heading">Use it on your site</h2><button class="copy-code" id="copy-code" type="button">Copy code</button></div>
+            <pre tabindex="0" aria-label="Generated JavaScript integration"><code id="integration-code"></code></pre>
+            <p class="code-note" id="code-status" role="status" aria-live="polite">Run npm install social-share-buttons, then add this JavaScript to your app.</p>
+          </section>
+        </div>
+      </div>
+
+      <section class="recipes" aria-labelledby="cards-heading">
+        <div class="section-title"><div><p class="eyebrow">Built for real pages</p><h2 id="cards-heading">Many articles. One initialization.</h2></div><p>Each card declares its own URL and title in HTML. One call initializes them all, including CMS-generated content.</p></div>
+        <div class="card-grid" id="article-cards">
+          <article class="story-card"><p class="eyebrow">In the studio / 4 min read</p><h3>Make something small, every day.</h3><p>A practical guide to building a creative habit without making it a second job.</p><div data-share-buttons="bluesky,whatsapp,copy" data-share-url="https://example.com/notes/small-every-day" data-share-title="Make something small, every day." data-share-text="A practical guide to building a creative habit." data-share-aria-label="Share Make something small"></div></article>
+          <article class="story-card"><p class="eyebrow">Outside / 6 min read</p><h3>The long way home.</h3><p>A reminder to leave a little time for the places between where you are and where you are going.</p><div data-share-buttons="bluesky,whatsapp,copy" data-share-url="https://example.com/notes/long-way-home" data-share-title="The long way home." data-share-text="Leave a little time for the places in between." data-share-aria-label="Share The long way home"></div></article>
+        </div>
+        <div class="recipe-code"><pre><code>&lt;div data-share-buttons="bluesky,whatsapp,copy"
+     data-share-url="https://example.com/your-article"
+     data-share-title="Your article title"&gt;&lt;/div&gt;
+
+import { initShareButtons } from 'social-share-buttons/auto';
+const widgets = initShareButtons();
+// After adding more cards: widgets.refresh();
+// When leaving the page: widgets.destroy();</code></pre></div>
+      </section>
+    </main>
+    <footer class="footer"><span>Local source. No remote scripts, fonts, or image requests.</span><span><a href="https://github.com/ozdemirburak/social-share-buttons">Documentation</a> · MIT</span></footer>
+  </div>
+
+  <script type="module">
+    import SocialShareButtons from '../src/index.ts';
+    import { initShareButtons } from '../src/auto.ts';
+
+    const platformNames = [['x','X'],['bluesky','Bluesky'],['threads','Threads'],['mastodon','Mastodon'],['facebook','Facebook'],['linkedin','LinkedIn'],['reddit','Reddit'],['telegram','Telegram'],['whatsapp','WhatsApp'],['email','Email'],['pinterest','Pinterest'],['copy','Copy link'],['native','Device share']];
+    const presets = {
+      article: { variant:'outline', theme:'light', size:'md', layout:'horizontal', platforms:['x','bluesky','whatsapp','copy'] },
+      compact: { variant:'minimal', theme:'light', size:'sm', layout:'horizontal', platforms:['x','email','copy','native'] },
+      sidebar: { variant:'outline', theme:'dark', size:'sm', layout:'vertical', platforms:['bluesky','linkedin','email','copy'] },
+    };
+    const fields = Object.fromEntries(['variant','theme','size','layout'].map(key => [key, document.getElementById(key)]));
+    const urlInput = document.querySelector('#share-url');
+    const titleInput = document.querySelector('#share-title');
+    const textInput = document.querySelector('#share-text');
+    const imageInput = document.querySelector('#share-media');
+    const actionResult = document.querySelector('#action-result');
+    const stage = document.querySelector('#preview-stage');
+    const code = document.querySelector('#integration-code');
+    const codeStatus = document.querySelector('#code-status');
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const platformList = document.querySelector('#platforms');
+    for (const [name, label] of platformNames) {
+      const wrapper = document.createElement('label');
+      wrapper.className = 'platform-choice';
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox'; checkbox.value = name; checkbox.name = 'platform';
+      checkbox.checked = presets.article.platforms.includes(name);
+      wrapper.append(checkbox, document.createTextNode(label));
+      platformList.append(wrapper);
+    }
+    let currentData = { url:urlInput.value, title:titleInput.value, text:textInput.value };
+    const selectedPlatforms = () => [...platformList.querySelectorAll('input:checked')].map(input => input.value);
+    const readOptions = () => ({
+      platforms: selectedPlatforms(),
+      ...Object.fromEntries(Object.entries(fields).map(([key, field]) => [key, field.value])),
+    });
+    const widget = new SocialShareButtons({
+      container: '#share-preview', ...readOptions(), data: () => currentData,
+      onShare(platform, success) {
+        if (success) actionResult.textContent = platform === 'copy' ? `Copied: ${currentData.url}` : `Share request sent to ${platform}.`;
+      },
+      onError(error) {
+        actionResult.textContent = error.code === 'cancelled' ? 'Sharing cancelled. Your article is still here.' : `Could not complete ${error.platform}: ${error.code}.`;
+      },
+    });
+    const copier = new SocialShareButtons({container:false});
+    const cards = initShareButtons(document.querySelector('#article-cards'), {
+      variant:'minimal', size:'sm',
+      onShare(platform, success) { if (platform === 'copy') actionResult.textContent = success ? 'Card link copied. Each card has its own URL.' : 'The card link could not be copied.'; },
+    });
+    function syncSurface() {
+      stage.dataset.surface = fields.theme.value === 'auto' ? (media.matches ? 'dark' : 'light') : fields.theme.value;
+      stage.dataset.layout = fields.layout.value;
+    }
+    function updateSnippet() {
+      const options = {container:'#share-buttons', ...readOptions(), data:currentData};
+      const body = JSON.stringify(options, null, 2);
+      code.textContent = `// Add <div id="share-buttons"></div> to your HTML.\nimport SocialShareButtons from 'social-share-buttons';\nimport 'social-share-buttons/styles';\n\nconst share = new SocialShareButtons(${body});\n\n// Clean up when the component unmounts:\n// share.destroy();`;
+      codeStatus.textContent = 'Run npm install social-share-buttons, then add this JavaScript to your app.';
+    }
+    function updateAppearance(clearPreset = true) {
+      widget.updateOptions(readOptions());
+      syncSurface(); updateSnippet();
+      if (clearPreset) document.querySelectorAll('[data-preset]').forEach(button => button.setAttribute('aria-pressed', 'false'));
+      actionResult.textContent = selectedPlatforms().length ? 'Preview updated. Try a sharing action.' : 'Select at least one platform to show buttons.';
+    }
+    document.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => {
+      const preset = presets[button.dataset.preset];
+      for (const [key, field] of Object.entries(fields)) field.value = preset[key];
+      platformList.querySelectorAll('input').forEach(input => { input.checked = preset.platforms.includes(input.value); });
+      document.querySelectorAll('[data-preset]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      updateAppearance(false);
+    }));
+    Object.values(fields).forEach(field => field.addEventListener('change', () => updateAppearance()));
+    platformList.addEventListener('change', () => updateAppearance());
+    function updateContent() {
+      const parseWebUrl = (input, optional = false) => {
+        input.setCustomValidity('');
+        if (optional && !input.value.trim()) return undefined;
+        try {
+          const url = new URL(input.value);
+          if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error('Invalid URL');
+          return url.href;
+        } catch {
+          input.setCustomValidity('Enter an absolute HTTP or HTTPS URL without credentials.');
+          throw new Error(input === imageInput ? 'Enter a valid image URL or leave it empty.' : 'Enter a valid article URL.');
+        }
+      };
+      try {
+        const url = parseWebUrl(urlInput);
+        const imageUrl = parseWebUrl(imageInput, true);
+        currentData = {url, title:titleInput.value, text:textInput.value, ...(imageUrl ? {media:imageUrl} : {})};
+        document.querySelector('#article-title').textContent = titleInput.value || 'Your article title';
+        document.querySelector('#article-text').textContent = textInput.value;
+        updateSnippet();
+        actionResult.textContent = 'Share content updated.';
+      } catch (error) {
+        actionResult.textContent = `${error.message} The preview keeps the last valid content.`;
+      }
+    }
+    [urlInput,titleInput,textInput,imageInput].forEach(field => field.addEventListener('input', updateContent));
+    document.querySelector('#copy-code').addEventListener('click', async (event) => {
+      const button = event.currentTarget;
+      button.disabled = true;
+      const success = await copier.share('copy', {url:code.textContent});
+      codeStatus.textContent = success ? 'Integration code copied. Add the HTML container, then paste the code into your app.' : 'Copy unavailable. Select the code above to copy it manually.';
+      button.disabled = false;
+    });
+    media.addEventListener('change', syncSurface);
+    updateSnippet(); syncSurface();
+    window.addEventListener('pagehide', event => {
+      if (event.persisted) return;
+      widget.destroy(); copier.destroy(); cards.destroy(); media.removeEventListener('change', syncSurface);
+    });
+  </script>
+</body>
+</html>
