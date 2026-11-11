@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+.claude
+CLAUDE.md
+node_modules
+coverage
+*.tgz
+/.history-backup/
+/dist/

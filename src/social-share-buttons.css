@@ -1,0 +1,211 @@
+/** Social Share Buttons: scoped, themeable controls with no global resets. */
+.social-share {
+  --_ss-bg: var(--social-share-buttons-bg, #ffffff);
+  --_ss-text: var(--social-share-buttons-text, #202631);
+  --_ss-border: var(--social-share-buttons-border, #868e9b);
+  --_ss-hover: var(--social-share-buttons-hover, #edf0f4);
+  --_ss-shadow: var(--social-share-buttons-shadow, rgb(22 32 48 / 14%));
+  --_ss-radius: var(--social-share-buttons-radius, 0.625rem);
+  --_ss-duration: var(--social-share-buttons-transition, 160ms ease);
+  --_ss-font-size: 0.875rem;
+  --_ss-padding: 0.625rem 0.875rem;
+  --_ss-control-size: 44px;
+  max-width: 100%;
+  color: var(--_ss-text);
+}
+
+.social-share[data-theme="dark"] {
+  --_ss-bg: var(--social-share-buttons-bg, #191f29);
+  --_ss-text: var(--social-share-buttons-text, #f4f6fa);
+  --_ss-border: var(--social-share-buttons-border, #8993a3);
+  --_ss-hover: var(--social-share-buttons-hover, #303a49);
+  --_ss-shadow: var(--social-share-buttons-shadow, rgb(0 0 0 / 28%));
+}
+
+.social-share[data-size="sm"] {
+  --_ss-font-size: 0.8125rem;
+  --_ss-padding: 0.5rem 0.75rem;
+}
+
+.social-share[data-size="lg"] {
+  --_ss-font-size: 1rem;
+  --_ss-padding: 0.75rem 1.125rem;
+  --_ss-control-size: 52px;
+}
+
+.social-share .social-share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--social-share-buttons-gap, 0.5rem);
+  min-width: 0;
+}
+
+.social-share[data-layout="vertical"] .social-share-buttons {
+  flex-direction: column;
+  align-items: stretch;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.social-share .social-share-button {
+  --_ss-brand-foreground: var(--_ss-text);
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: var(--_ss-control-size);
+  max-width: 100%;
+  min-height: var(--_ss-control-size);
+  padding: var(--_ss-padding);
+  border: 1px solid var(--_ss-border);
+  border-radius: var(--_ss-radius);
+  background: var(--social-share-buttons-color, var(--_ss-bg));
+  color: var(--social-share-buttons-foreground, var(--_ss-brand-foreground));
+  font-family: inherit;
+  font-size: var(--_ss-font-size);
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  appearance: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--_ss-duration), box-shadow var(--_ss-duration), transform var(--_ss-duration);
+  box-shadow: 0 1px 2px var(--_ss-shadow);
+}
+
+/* Public foreground overrides remain available for custom brand backgrounds. */
+.social-share .social-share-button:is([data-platform="x"], [data-platform="threads"], [data-platform="facebook"], [data-platform="linkedin"], [data-platform="pinterest"], [data-platform="copy"]) {
+  --_ss-brand-foreground: #ffffff;
+}
+
+.social-share .social-share-button:is([data-platform="bluesky"], [data-platform="mastodon"], [data-platform="reddit"], [data-platform="telegram"], [data-platform="whatsapp"], [data-platform="email"]) {
+  --_ss-brand-foreground: #000000;
+}
+
+.social-share[data-variant="outline"] .social-share-button,
+.social-share[data-variant="minimal"] .social-share-button {
+  background: transparent;
+  color: var(--social-share-buttons-foreground, var(--_ss-text));
+  box-shadow: none;
+}
+
+.social-share[data-variant="minimal"] .social-share-button {
+  border-color: transparent;
+}
+
+.social-share .social-share-label {
+  min-width: 0;
+}
+
+.social-share[data-layout="vertical"] .social-share-button {
+  justify-content: flex-start;
+}
+
+.social-share .social-share-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (hover: hover) {
+  .social-share .social-share-button:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px var(--_ss-shadow);
+  }
+
+  .social-share[data-variant="outline"] .social-share-button:not(:disabled):hover,
+  .social-share[data-variant="minimal"] .social-share-button:not(:disabled):hover {
+    background: var(--_ss-hover);
+    box-shadow: none;
+  }
+}
+
+.social-share .social-share-button:not(:disabled):active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.social-share .social-share-button:focus-visible {
+  outline: 3px solid var(--_ss-text);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--_ss-bg);
+}
+
+.social-share .social-share-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.social-share .social-share-button[aria-busy="true"] {
+  cursor: progress;
+  opacity: 1;
+}
+
+/* Opacity keeps the label in the accessibility tree; visibility would remove it. */
+.social-share .social-share-button[aria-busy="true"] > * {
+  opacity: 0;
+}
+
+.social-share .social-share-button[aria-busy="true"]::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: social-share-spin 700ms linear infinite;
+}
+
+@keyframes social-share-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-share .social-share-button,
+  .social-share .social-share-button:not(:disabled):hover,
+  .social-share .social-share-button:not(:disabled):active {
+    transition: none;
+    transform: none;
+  }
+
+  .social-share .social-share-button[aria-busy="true"]::after {
+    animation: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .social-share .social-share-button {
+    border-width: 2px;
+    border-color: currentColor;
+  }
+}
+
+@media (forced-colors: active) {
+  .social-share .social-share-button,
+  .social-share[data-variant="outline"] .social-share-button,
+  .social-share[data-variant="minimal"] .social-share-button {
+    background: ButtonFace;
+    color: ButtonText;
+    border: 2px solid ButtonText;
+    box-shadow: none;
+  }
+
+  .social-share .social-share-button:focus-visible {
+    outline-color: Highlight;
+  }
+}
